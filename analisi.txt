@@ -1,0 +1,17 @@
+chiedere la materia;
+chiedere di inserire il numero di partecipanti;
+la modalità di valutazione (decimi, centesimi, trentesimi, sessantesimi);
+il numero di giudici (3-5);
+assegnare voti;
+calcolare media dei voti;
+aggiornare e mostrare la classifica;
+ripetere per il numero di partecipanti;
+
+
+DATI PERSONA:
+Nome & Cognome, eta,sesso;
+
+DATI CONCORRENTE:
+numero concorrente (id), voto pratico , voto scritto , voto teorico;
+
+DATI GIUDICE:
