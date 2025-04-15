@@ -225,7 +225,7 @@ public class Main {
             //System.out.println("dwdw");
             partecipanti.get(i).visualizza();
         }
-
+        //TODO AGGIUNGERE VINCITORE
         scanner.close();
     }
 
