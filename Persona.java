@@ -11,5 +11,13 @@ public abstract class Persona {
         this.eta = eta;
         this.sesso = sesso;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
     
 }

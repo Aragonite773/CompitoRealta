@@ -106,19 +106,20 @@ public class Main {
 
         System.out.println();
         
+        //inserimento numero giudici
         do {
-            System.out.println("Inserisci il numero di giudici (3-5): ");
+            System.out.println("Inserisci il numero di giudici (3-5): "); //verifica che il valore inserito sia valido
             numeroGiudici = scanner.nextInt();
             if (numeroGiudici <3 || numeroGiudici > 5) {
                 System.out.println("Scelta non valida, riprova.");
             }
-        } while (numeroGiudici <3 || numeroGiudici > 5);
+        } while (numeroGiudici <3 || numeroGiudici > 5);  
         scanner.nextLine(); 
 
         //inserimento dati giudici
         boolean giudiceValido = true;
-        for (int i = 0; i<numeroGiudici; i++) {
-            do{
+        for (int i = 0; i<numeroGiudici; i++) { 
+            do{ //verifica che i valori inseriti siano validi
                 giudiceValido = true;
                 try {
                     System.out.println("Inserisci i dati del giudice " + (i+1));
@@ -129,7 +130,7 @@ public class Main {
                     String cognome = scanner.nextLine();
 
                     String sesso;
-                    do {
+                    do {    //verifica che il sesso inserito sia valido
                         System.out.println("Sesso (M/F/Maschio/Femmina): ");
                         sesso = scanner.nextLine().toLowerCase(); 
 
@@ -141,7 +142,7 @@ public class Main {
                     int eta;
                     System.out.println("Età (minima " + ETA_MIN_GIUDICI +"): ");
                     
-                    do { 
+                    do { //verifica che l'età inserita sia valida
                         eta = scanner.nextInt();
                         scanner.nextLine(); 
 
@@ -150,19 +151,19 @@ public class Main {
                         }
                     } while (eta < ETA_MIN_GIUDICI);
                     
-                    giudice.add(new Giudice(nome, cognome, eta, sesso));
+                    giudice.add(new Giudice(nome, cognome, eta, sesso));    //crea un nuovo giudice e lo aggiunge alla lista di giudici
                     System.out.println("Giudice aggiunto correttamente.");
                     System.out.println();
-                } catch (Exception e) {
+                } catch (InputMismatchException e) {
                     giudiceValido = false;
                     System.out.println("Input non valido, riprova.");
                     scanner.nextLine(); 
                 }
-            } while (!giudiceValido);
+            } while (!giudiceValido);   //chiedi fino a quando non viene inserito un giudice valido
         }
 
         //scelta modalità di valutazione
-        do {
+        do {    //verifica che la modalità di valutazione inserita sia valida
             System.out.println("Inserisci la modalità di valutazione (decimi, trentesimi, sessantesimi, centesimi): ");
             modalitaValutazione = scanner.nextLine().toLowerCase();
 
@@ -173,21 +174,31 @@ public class Main {
         } while (!modalitaValutazione.equals("decimi") && !modalitaValutazione.equals("trentesimi") && !modalitaValutazione.equals("sessantesimi") && !modalitaValutazione.equals("centesimi"));
 
         //inserimento voti per ogni giudice
-        //TODO add try catch
-        for (int j = 0; j < partecipantiTotali; j++) {  //TODO add numero partecipante
-            for (int i = 0; i < numeroGiudici; i++) {
-                System.out.println("GIUDICE " + (i+1));
-    
+        for (int j = 0; j < partecipantiTotali; j++) {  //per ogni partecipante
+            System.out.println("PARTECIPANTE " + (j+1) + ": " + partecipanti.get(j).getNome() + " " + partecipanti.get(j).getCognome());
+            for (int i = 0; i < numeroGiudici; i++) { //per ogni giudice
+            System.out.println("GIUDICE " + (i+1));
+            
+            boolean votiValidi = false;
+            do {    //verifica che i voti inseriti siano validi
+                try {
                 System.out.println("Inserisci il voto per la prova orale: ");
                 float votoOrale = inserisciVoto(modalitaValutazione, scanner);
-    
+        
                 System.out.println("Inserisci il voto per la prova scritta: ");
                 float votoScritto = inserisciVoto(modalitaValutazione, scanner);
-    
+        
                 System.out.println("Inserisci il voto per la prova pratica: ");
                 float votoPratica = inserisciVoto(modalitaValutazione, scanner);
                 
-                giudice.get(i).assegnaVoti(votoOrale, votoScritto, votoPratica, partecipanti.get(j));
+                giudice.get(i).assegnaVoti(votoOrale, votoScritto, votoPratica, partecipanti.get(j));   //assegna i voti al partecipante
+                votiValidi = true;  //se i voti sono validi esci dal ciclo
+                } catch (InputMismatchException e) {    //se i voti non sono validi, chiedi di nuovo
+                votiValidi = false;
+                System.out.println("Errore: inserito un tipo di dato non valido. Riprova.");
+                scanner.nextLine(); 
+                } 
+            } while (!votiValidi);  //chiedi fino a quando non vengono inseriti voti validi
             }
         }
         
@@ -199,7 +210,7 @@ public class Main {
             float  mediaPratico = 0;
             float mediaGenerale = 0;
             
-            for (int i = 0; i < numeroGiudici; i++) {
+            for (int i = 0; i < numeroGiudici; i++) {   //per ogni giudice calcola la media dei voti
                 mediaOrale += p.getVotiOrale(i);
                 mediaScritto += p.getVotiScritto(i);
                 mediaPratico += p.getVotiPratico(i);
@@ -209,10 +220,9 @@ public class Main {
             mediaScritto /= numeroGiudici;
             mediaPratico /= numeroGiudici;
 
-            
-
             mediaGenerale = (mediaOrale + mediaScritto + mediaPratico) / 3;
 
+            //imposta le medie per ogni partecipante
             p.setMediaOrale(mediaOrale);
             p.setMediaScritto(mediaScritto);
             p.setMediaPratico(mediaPratico);
@@ -220,12 +230,37 @@ public class Main {
 
         }
 
-        //*Debug */
-        for (int i = 0; i<partecipanti.size(); i++) {
-            //System.out.println("dwdw");
-            partecipanti.get(i).visualizza();
+        int indiceVincitore = 0;
+
+        for (int i = 0; i<partecipantiTotali; i++) {    //cerca il vincitore
+            if (partecipanti.get(i).getMediaGenerale() > partecipanti.get(indiceVincitore).getMediaGenerale()) { //se la media del partecipante è maggiore di quella del vincitore attuale, aggiorna il vincitore
+                indiceVincitore = i;
+            }
         }
-        //TODO AGGIUNGERE VINCITORE
+
+        System.out.println("Il vincitore è: ");
+        partecipanti.get(indiceVincitore).visualizza();
+        System.out.println();
+
+        scanner.nextLine();
+
+        String visualizzaClassifica;
+        do {    //verifica che la scelta inserita sia valida
+            System.out.println("Vuoi visualizzare la classifica? (si/no)");
+            visualizzaClassifica = scanner.nextLine().toLowerCase();
+            if (visualizzaClassifica.equals("si")) {
+                System.out.println("Classifica: ");
+                for (int i = 0; i<partecipantiTotali; i++) {
+                    System.out.println("Partecipante " + (i+1) + ": " + partecipanti.get(i).getMediaGenerale());    //si potrebbe utilizzare il visualizza() della classe partecipante
+                }
+            } else if (visualizzaClassifica.equals("no")) {
+                System.out.println("Classifica non visualizzata.");
+            } else {
+                System.out.println("Scelta non valida.");
+            }
+        } while (!visualizzaClassifica.equals("si") && !visualizzaClassifica.equals("no"));
+        
+
         scanner.close();
     }
 

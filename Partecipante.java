@@ -55,6 +55,18 @@ public class Partecipante extends Persona{
         return votiPratico.get(indice);
     }
 
+    public float getMediaGenerale() {
+        return mediaGenerale;
+    }
+
+    public String getNome() {
+        return super.getNome();
+    }
+
+    public String getCognome() {
+        return super.getCognome();
+    }
+
     
 
     public int getId() {
