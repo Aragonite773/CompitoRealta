@@ -1,17 +1,30 @@
-chiedere la materia;
-chiedere di inserire il numero di partecipanti;
-la modalità di valutazione (decimi, centesimi, trentesimi, sessantesimi);
-il numero di giudici (3-5);
-assegnare voti;
-calcolare media dei voti;
-aggiornare e mostrare la classifica;
-ripetere per il numero di partecipanti;
 
+Chiedere di inserire il tipo di concorso, chiedere l'età minima per partecipare 
+al concorso (verificare che sia maggiore o uguale a 18, altrimenti chiedere fino a quando
+non viene inserito un valore valido).
+chiedere il numero di partecipanti totali (controllare che venga inserito un nuemero maggiore di 0,
+altrimenti chiedere fino a quando non viene inserito un valore valido).
+chiedere di inserire i dati di ogni partecipante (nome, cognome, eta, sesso) e generare un id univoco,
+effettuare i controlli necessari affinché i dati inseriti siano validi (chiedere di inserirli fino a che non sono tutti 
+validi).
+Chiedere il numero di giudici totali (da 3 a 5), effettuare i controlli necessari e chiedere 
+di inserire i dati corretti fino a quando non vengono inseriti.
+chiedere i dati di ogni giudice (nome, cognome, sesso, età),
+effettuare i controlli necessari affinché i dati inseriti siano validi (chiedere di inserirli fino a che non sono tutti 
+validi).
+chiedere la modalità di valutazione preferita tra quelle disponibili (decimi, trentesimi, sessantesimi e centesimi),
+ripetere fino a che non viene inserito un valore valido effettuando i dovuti controlli
+chiedere di inserire il voto di ogni giudice per ogni prova (orale, scritta e pratica) per ogni partecipante,
+ripetere fino a che non viene inserito un valore valido effettuando i dovuti controlli
+calcolare le medie di ogni prova e generale per ogni partecipante
+trovare il vincitore e comunicarlo 
+chiedere se si vuole visualizzare la classifica, controllare la risposta comunicata 
+e agire di conseguenza.
+chiedere se si vuole effettuare un nuovo concorso, controllare la risposta comunicata e nel caso sia affermativa
+ripetere tutto.
 
-DATI PERSONA:
-Nome & Cognome, eta,sesso;
+FUNZIONALTÀ AGGIUNTIVE
+-visualizzare la classifica completa
+-possibilità di effettuare più concorsi consecutivamente
+-validazione dei dati inseriti in input e gestione delle possibili eccezioni
 
-DATI CONCORRENTE:
-numero concorrente (id), voto pratico , voto scritto , voto teorico;
-
-DATI GIUDICE:
